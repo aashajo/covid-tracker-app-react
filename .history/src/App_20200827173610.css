@@ -38,7 +38,7 @@ body {
   flex-direction: column;
 }
 
-.app_right .MuiCardContent-root {
+.app_right muiCardContent-root{
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -55,12 +55,4 @@ body {
   }
 }
 
-.app_graph{
-  flex-grow: 1;
-}
-
-.app_graphtitle {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
 

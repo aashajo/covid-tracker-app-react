@@ -30,7 +30,7 @@ body {
 
 .app_left {
   /* 0.9 -> 90% of the screen */
-  flex: 0.9 ;
+  /* flex: 0.9 ; */
 }
 
 .app_right {
@@ -61,6 +61,5 @@ body {
 
 .app_graphtitle {
   margin-top: 20px;
-  margin-bottom: 20px;
 }
 

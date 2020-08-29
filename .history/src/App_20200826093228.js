@@ -10,27 +10,20 @@ import "./App.css";
 import Infobox from "./Infobox";
 import Map from "./Map";
 import Table from "./Table";
-import { sortData, prettyPrintStat } from "./util";
-import LineGraph from "./LineGraph";
-import "leaflet/dist/leaflet.css";
 
 function App() {
   const [countries, setCountries] = useState([]); //State --> Variable declaration in React
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
-  const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
-  const [mapZoom, setMapZoom] = useState(3);
-  const [mapCountries, setMapCountries] = useState([]);
-  const [casesType, setCasesType] = useState("cases");
 
-  useEffect(() => {
+  useEffect(()=> {
     fetch("https://disease.sh/v3/covid-19/all")
-      .then((response) => response.json())
-      .then((data) => {
-        setCountryInfo(data);
-      });
-  }, []);
+    .then((response) => response.json())
+    .then((data) => {
+      setCountryInfo(data);
+    })
+  },[])
 
   useEffect(() => {
     //useEffect --> Code inside useEffect will run once when the component loads and not againRuns a set of code based on given condition
@@ -44,10 +37,8 @@ function App() {
             value: country.countryInfo.iso2, // UK, USA, FR
           }));
 
-          const sortedData = sortData(data);
-          setTableData(sortedData);
+          setTableData(data);
           setCountries(countries);
-          setMapCountries(data);
         });
     };
     getCountriesData();
@@ -69,8 +60,6 @@ function App() {
       .then((data) => {
         setCountry(countryCode); //update the contry code in input
         setCountryInfo(data); //store the response of the country info in the variable
-        setMapCenter([data.countryInfo.lat, data.countryInfo.lng]);
-        setMapZoom(4);
       });
   };
 
@@ -100,49 +89,22 @@ function App() {
 
         {/* Info Box */}
         <div className="app_stats">
-          <Infobox
-            isRed
-            active={casesType === "cases"}
-            onClick={(e) => setCasesType("cases")}
-            title="Coronavirus Cases"
-            cases={prettyPrintStat(countryInfo.todayCases)}
-            total={prettyPrintStat(countryInfo.cases)}
-          />
-          <Infobox
-            active={casesType === "recovered"}
-            onClick={(e) => setCasesType("recovered")}
-            title="Recovered"
-            cases={prettyPrintStat(countryInfo.todayRecovered)}
-            total={prettyPrintStat(countryInfo.recovered)}
-          />
-          <Infobox
-            isRed
-            active={casesType === "deaths"}
-            onClick={(e) => setCasesType("deaths")}
-            title="Deaths"
-            cases={prettyPrintStat(countryInfo.todayDeaths)}
-            total={prettyPrintStat(countryInfo.deaths)}
-          />
+          <Infobox title="Coronavirus Cases" cases={countryInfo.todayCases} total={countryInfo.cases} />
+          <Infobox title="Recovered" cases={countryInfo.todayRecovered} total={countryInfo.recovered} />
+          <Infobox title="Deaths" cases={countryInfo.todayDeaths} total={countryInfo.deaths} />
         </div>
 
         {/* Map */}
-        <Map
-          casesType={casesType}
-          countries={mapCountries}
-          center={mapCenter}
-          zoom={mapZoom}
-        />
+        <Map />
       </div>
 
       <Card className="app_right">
         <CardContent>
-          {/* Table */}
           <h3>Live cases by country</h3>
-          <Table countries={tableData} />
-
+          {/* Table */}
+          <Table countries={tableData}/>
+          <h3>Worldwide new cases</h3>
           {/* Graph */}
-          <h3 className="app_graphtitle">Worldwide new {casesType}</h3>
-          <LineGraph className="app_graph" casesType={casesType} />
         </CardContent>
       </Card>
     </div>

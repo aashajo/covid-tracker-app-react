@@ -46,7 +46,7 @@ body {
 
 .app_stats {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 
 @media (max-width: 990px) {
@@ -61,6 +61,5 @@ body {
 
 .app_graphtitle {
   margin-top: 20px;
-  margin-bottom: 20px;
 }
 

@@ -20,7 +20,7 @@ body {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 
 .app_header > h1 {
@@ -61,6 +61,5 @@ body {
 
 .app_graphtitle {
   margin-top: 20px;
-  margin-bottom: 20px;
 }
 

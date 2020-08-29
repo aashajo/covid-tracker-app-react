@@ -14,16 +14,17 @@ import { sortData, prettyPrintStat } from "./util";
 import LineGraph from "./LineGraph";
 import "leaflet/dist/leaflet.css";
 
+
 function App() {
   const [countries, setCountries] = useState([]); //State --> Variable declaration in React
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
-  const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
+  const [mapCenter, setMapCenter] = useState({lat: 34.80746, lng: -40.4796})
   const [mapZoom, setMapZoom] = useState(3);
   const [mapCountries, setMapCountries] = useState([]);
   const [casesType, setCasesType] = useState("cases");
-
+  
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
       .then((response) => response.json())
@@ -100,25 +101,17 @@ function App() {
 
         {/* Info Box */}
         <div className="app_stats">
-          <Infobox
-            isRed
-            active={casesType === "cases"}
-            onClick={(e) => setCasesType("cases")}
+          <Infobox onClick={(e) => setCasesType("cases")}
             title="Coronavirus Cases"
             cases={prettyPrintStat(countryInfo.todayCases)}
             total={prettyPrintStat(countryInfo.cases)}
           />
-          <Infobox
-            active={casesType === "recovered"}
-            onClick={(e) => setCasesType("recovered")}
+          <Infobox onClick={(e) => setCasesType("recovered")}
             title="Recovered"
             cases={prettyPrintStat(countryInfo.todayRecovered)}
             total={prettyPrintStat(countryInfo.recovered)}
           />
-          <Infobox
-            isRed
-            active={casesType === "deaths"}
-            onClick={(e) => setCasesType("deaths")}
+          <Infobox onClick={(e) => setCasesType("deaths")}
             title="Deaths"
             cases={prettyPrintStat(countryInfo.todayDeaths)}
             total={prettyPrintStat(countryInfo.deaths)}
@@ -126,23 +119,26 @@ function App() {
         </div>
 
         {/* Map */}
-        <Map
-          casesType={casesType}
-          countries={mapCountries}
-          center={mapCenter}
-          zoom={mapZoom}
+        <Map 
+        casesType={casesType}
+        countries={mapCountries}
+        center={mapCenter}
+        zoom={mapZoom}
         />
+
       </div>
 
       <Card className="app_right">
         <CardContent>
-          {/* Table */}
+
           <h3>Live cases by country</h3>
+          {/* Table */}
           <Table countries={tableData} />
 
+          <h3>Worldwide new cases</h3>
           {/* Graph */}
-          <h3 className="app_graphtitle">Worldwide new {casesType}</h3>
-          <LineGraph className="app_graph" casesType={casesType} />
+                <LineGraph  casesType={casesType}/>
+
         </CardContent>
       </Card>
     </div>

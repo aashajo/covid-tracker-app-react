@@ -33,17 +33,6 @@ body {
   flex: 0.9 ;
 }
 
-.app_right {
-  display: flex;
-  flex-direction: column;
-}
-
-.app_right .MuiCardContent-root {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
 .app_stats {
   display: flex;
   justify-content: space-between;
@@ -55,12 +44,4 @@ body {
   }
 }
 
-.app_graph{
-  flex-grow: 1;
-}
-
-.app_graphtitle {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
 
